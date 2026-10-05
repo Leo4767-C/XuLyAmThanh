@@ -1,0 +1,15 @@
+﻿test_file,true_label,pred_label,top1_label,top1_dtw,top2_label,top2_dtw
+bat_04.wav,bat,bat,bat,14.9517,tat,21.3008
+bat_05.wav,bat,bat,bat,16.6823,phai,20.0125
+tat_04.wav,tat,tat,tat,14.1691,bat,17.9536
+tat_05.wav,tat,tat,tat,16.2083,bat,19.5692
+len_04.wav,len,len,len,13.7743,bat,22.5749
+len_05.wav,len,len,len,16.1456,dung,21.5341
+xuong_04.wav,xuong,xuong,xuong,13.8032,dung,20.6545
+xuong_05.wav,xuong,xuong,xuong,16.5989,dung,21.9333
+trai_04.wav,trai,trai,trai,14.5909,xuong,22.2641
+trai_05.wav,trai,trai,trai,19.1262,phai,26.537
+phai_04.wav,phai,phai,phai,16.731,bat,21.7368
+phai_05.wav,phai,phai,phai,14.5481,trai,21.0911
+dung_04.wav,dung,dung,dung,13.6122,len,22.0438
+dung_05.wav,dung,dung,dung,13.8808,trai,23.1337
