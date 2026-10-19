@@ -1,0 +1,101 @@
+=== A. Feature extraction ===
+shapes: [(99, 39), (121, 39), (111, 39)]  (chieu 2 phai = 39)
+train=30 test=10  leakage=False
+
+=== B,C. Train HMM 5 state, diag ===
+[mo] converged=True  bad_transitions=[]
+[[0.972 0.028 0.    0.    0.   ]
+ [0.    0.867 0.133 0.    0.   ]
+ [0.    0.    0.974 0.026 0.   ]
+ [0.    0.    0.    0.867 0.133]
+ [0.    0.    0.    0.    1.   ]]
+[dong] converged=True  bad_transitions=[]
+[[0.968 0.032 0.    0.    0.   ]
+ [0.    0.875 0.125 0.    0.   ]
+ [0.    0.    0.973 0.027 0.   ]
+ [0.    0.    0.    0.966 0.034]
+ [0.    0.    0.    0.    1.   ]]
+[len] converged=True  bad_transitions=[]
+[[0.969 0.031 0.    0.    0.   ]
+ [0.    0.867 0.133 0.    0.   ]
+ [0.    0.    0.973 0.027 0.   ]
+ [0.    0.    0.    0.867 0.133]
+ [0.    0.    0.    0.    1.   ]]
+[xuong] converged=True  bad_transitions=[]
+[[0.969 0.031 0.    0.    0.   ]
+ [0.    0.959 0.041 0.    0.   ]
+ [0.    0.    0.951 0.049 0.   ]
+ [0.    0.    0.    0.963 0.037]
+ [0.    0.    0.    0.    1.   ]]
+[dung] converged=True  bad_transitions=[]
+[[0.967 0.033 0.    0.    0.   ]
+ [0.    0.857 0.143 0.    0.   ]
+ [0.    0.    0.983 0.017 0.   ]
+ [0.    0.    0.    0.862 0.138]
+ [0.    0.    0.    0.    1.   ]]
+
+=== D. Recognition ===
+HMM train acc=1.000  test acc=1.000
+score table (3 test utterances):
+  mo_07.wav (true=mo, pred=mo, top1-top2 gap=1077.7)
+     mo         -4953.05
+     len        -6030.78
+     xuong      -6105.99
+     dong       -6216.88
+     dung       -6667.36
+  len_08.wav (true=len, pred=len, top1-top2 gap=799.5)
+     len        -5917.87
+     xuong      -6717.37
+     mo         -6812.50
+     dong       -7109.66
+     dung       -7162.56
+  dung_08.wav (true=dung, pred=dung, top1-top2 gap=497.2)
+     dung       -6950.15
+     dong       -7447.33
+     mo         -8012.45
+     xuong      -8142.80
+     len        -8174.58
+Viterbi mo_07.wav: logp=-4953.5, duration/state=[27, 8, 33, 7, 31], monotone=True
+Viterbi dong_07.wav: logp=-5499.1, duration/state=[23, 8, 34, 25, 29], monotone=True
+
+=== E1. n_states in {3,5,7} ===
+n_states=3: test acc=1.000  converged=5/5
+n_states=5: test acc=1.000  converged=5/5
+n_states=7: test acc=1.000  converged=5/5
+
+=== E2. MFCC13 vs MFCC+d+d2 ===
+13-D acc=1.000   39-D acc=1.000
+
+=== E3. diag vs full covariance ===
+full: train=1.000 test=1.000  | diag: train=1.000 test=1.000
+
+=== E4. DTW vs HMM ===
+| Metric | DTW | HMM |
+| Accuracy | 1.000 | 1.000 |
+| Train samples/class | 6 templates | 6 utt (tham so A,B,pi) |
+| Train time | ~0 s | 0.1 s |
+| Test time/trial | 58.7 ms | 2.0 ms |
+| Top confusion | none | none |
+DTW 1 template/class acc=1.000
+HMM 2 utt/class (3 states) acc=1.000
+
+=== E5. Mismatch: noise SNR ===
+SNR=20 dB: HMM=1.000  DTW=1.000  (clean HMM=1.000, DTW=1.000)
+SNR=10 dB: HMM=1.000  DTW=1.000  (clean HMM=1.000, DTW=1.000)
+SNR=5 dB: HMM=0.900  DTW=1.000  (clean HMM=1.000, DTW=1.000)
+
+=== F. Lexicon ===
+{'mo': ['m', 'o'], 'dong': ['d', 'o', 'ng'], 'len': ['l', 'e', 'n'], 'xuong': ['x', 'uo', 'ng'], 'dung': ['d', 'u', 'ng']}
+
+=== G / E6. Bigram re-ranking ===
+utterance gan nhat: dong_08.wav true=dong  gap/frame=0.612
+  prev=<s>    0:dong  0.1:dong  0.3:dong  1.0:dong  3.0:dong
+  prev=mo     0:dong  0.1:dong  0.3:dong  1.0:dong  3.0:dong
+  prev=dong   0:dong  0.1:dong  0.3:dong  1.0:dong  3.0:dong
+  prev=len    0:dong  0.1:dong  0.3:dong  1.0:dung  3.0:dung
+  prev=xuong  0:dong  0.1:dong  0.3:dong  1.0:dung  3.0:dung
+  prev=dung   0:dong  0.1:dong  0.3:dong  1.0:dong  3.0:dong
+
+=== H. Score distribution & reject ===
+reject threshold de xuat (5th pct score/frame cua dung lop) = -46.75; mean dung=-45.84, mean sai=-53.45
+Co the ket hop them: reject neu gap top1-top2 per frame < nguong nho.
