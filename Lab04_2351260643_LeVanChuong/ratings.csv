@@ -1,0 +1,10 @@
+sentence_id,method,intelligibility,naturalness,continuity,latency_ms,footprint_mb
+1,Concatenative,98.0,3.7,3.6,12.5,4.8
+1,HMM,91.0,2.9,4.1,38.2,1.2
+1,Neural TTS,99.5,4.8,4.9,320.0,45.0
+2,Concatenative,97.0,3.6,3.5,14.1,4.8
+2,HMM,89.5,2.8,4.0,42.0,1.2
+2,Neural TTS,99.2,4.7,4.8,345.0,45.0
+3,Concatenative,98.5,3.8,3.7,13.0,4.8
+3,HMM,92.0,3.0,4.2,39.5,1.2
+3,Neural TTS,99.8,4.9,4.9,310.0,45.0
